@@ -1,0 +1,5 @@
+ID	BAM	VCF	Included	Declared_gender
+A0001	/path/to/bam1.bam	/path/to/vcf1.vcf.gz	1	M
+A0002	/path/to/bam2.bam	/path/to/vcf2.vcf.gz	1	F
+A0003	/path/to/bam3.bam	/path/to/vcf3.vcf.gz	0	M
+A0004	/path/to/bam4.bam	/path/to/vcf4.vcf.gz	1	NA
