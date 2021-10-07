@@ -309,16 +309,24 @@ def main():
       default="default.conf",
       metavar="FILENAME",
       dest="conf_file")
+  parser.add_argument(
+      "-p",
+      "--process-only",
+      help="skip the counting step and use the output of the previous runs instead",
+      action="store_true",
+      dest="process_only")
   args = parser.parse_args()
   CONF = read_conf(args.conf_file)
-  init(CONF)
+  if not args.process_only:
+    init(CONF)
   MANIFEST = read_manifest(CONF["manifest"])
   HHH = read_data(CONF["HHH_file"])
   RC = read_data(CONF["RC_file"])
-  update(HHH, MANIFEST, "VCF", count_hethomhemi, CONF)
-  write_new(HHH)
-  update(RC, MANIFEST, "BAM", count_reads, CONF)
-  write_new(RC)
+  if not args.process_only:
+    update(HHH, MANIFEST, "VCF", count_hethomhemi, CONF)
+    write_new(HHH)
+    update(RC, MANIFEST, "BAM", count_reads, CONF)
+    write_new(RC)
   result = make_call(RC, HHH, MANIFEST, CONF)
   header = [
       "ID", "XAutoRatio", "YAutoRatio", "Hratio", "Declared_gender", "Genotype_gender", "Gender_mismatch", "Discordant_Hratio",
